@@ -2,6 +2,7 @@ package com.budgety.validation;
 
 import com.budgety.error.BudgetyBadRequestException;
 import com.budgety.error.BudgetyError;
+import com.budgety.model.user.SaveUserRequest;
 import com.budgety.model.user.UserLoginRequest;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,29 @@ public class BudgetyUserControllerValidation {
 
     if (StringUtils.isBlank(userLoginRequest.getPassword())) {
       errors.add(new BudgetyError("Password Must not be blank", HttpStatus.BAD_REQUEST));
+    }
+
+    if (!CollectionUtils.isEmpty(errors)) {
+      throw new BudgetyBadRequestException(errors);
+    }
+  }
+
+  public void validateSaveUser(SaveUserRequest saveUserRequest) {
+    List<BudgetyError> errors = new ArrayList<>();
+    if (StringUtils.isBlank(saveUserRequest.getEmail())) {
+      errors.add(new BudgetyError("Email Must not be blank", HttpStatus.BAD_REQUEST));
+    }
+
+    if (StringUtils.isBlank(saveUserRequest.getPassword())) {
+      errors.add(new BudgetyError("Password Must Not Be Blank", HttpStatus.BAD_REQUEST));
+    }
+
+    if (StringUtils.isBlank(saveUserRequest.getFirstName())) {
+      errors.add(new BudgetyError("First Name Must Not Be Blank", HttpStatus.BAD_REQUEST));
+    }
+
+    if (StringUtils.isBlank(saveUserRequest.getLastName())) {
+      errors.add(new BudgetyError("Last Name Must Not Be Blank", HttpStatus.BAD_REQUEST));
     }
 
     if (!CollectionUtils.isEmpty(errors)) {

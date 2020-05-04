@@ -10,7 +10,7 @@ public class SaveUserRequestToUserTransformer {
 
   public User transform(SaveUserRequest saveUserRequest) {
     User user = new User();
-    user.setName(saveUserRequest.getName());
+    user.setName(saveUserRequest.getFirstName() + " " + saveUserRequest.getLastName());
     user.setEmail(saveUserRequest.getEmail());
     String salt = PasswordUtils.getSalt();
     user.setPassword(PasswordUtils.generateSecuredPassword(saveUserRequest.getPassword(), salt));
